@@ -1,0 +1,21 @@
+from selenium.webdriver.common.by import By
+
+class MainPageLocators():
+    ENTER_BUTTON = (By.XPATH, "//div[@class='h']")
+    USER_NAME_FIELD = (By.XPATH, "//input[@id='login']")
+    PASSWORD_FIELD = (By.XPATH, "//input[@id='pass']")
+    LOGIN_BUTTON = (By.XPATH, "//input[@id='btnLogin']")
+    AUTHORIZED_USER_ICON = (By.XPATH,"//*[@id='pnlLogin']/div[1]/span")
+    CATALOGUE_BUTTON = (By.XPATH, "//span[@class='mainmenu-list__button-ddl mainmenu-list__button-ddl--catalogs']")
+    MOTOR_OIL = (By.XPATH, "//a[@title='Выбор моторных масел по параметрам']")
+    BRAND_LIST = (By.XPATH, "//dd[1]/div/div/div[@class='white-form']")
+    OIL_BRAND = (By.XPATH, "//*[contains(text(),'Kixx')]")
+    COMPOSITION_LIST = (By.XPATH, "//*[@id='catFilter']/dd[2]/div/div/div")
+    COMPOSITION = (By.XPATH, "//*[contains(text(),'Синтетическое')]")
+    FIRST_POSITION = (By.CSS_SELECTOR, "#ctl00_ctl00_b_b_updCatalog > div:nth-child(1) > a > div")
+    ADD_TO_CART_BUTTON = (By.XPATH, "//a[@id='7F7107E6_01009e02e300d7fd057fd3030100aa77_670_1003']")
+    CLOSE_FANCYBOX_BUTTON = (By.XPATH, "//a[@id='fancybox-close']")
+    GO_TO_CART_BUTTON = (By.XPATH, "//a[@class='shop-functions__cart js-cartfull']")
+    CONTINUE_ORDERING_BUTTON = (By.XPATH, "//a[@id='ctl00_ctl00_b_b_repOffices_ctl00_slbInvokeSubmit']")
+    CART_PRICE = (By.XPATH, "//span[@class='summa-basket-value']")
+    ORDER_PRICE = (By.XPATH, "//span[@class='summa']")

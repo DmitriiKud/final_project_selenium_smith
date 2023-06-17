@@ -1,13 +1,11 @@
 import time
-from selenium.webdriver import ActionChains, Keys
+import allure
 
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import StaleElementReferenceException
-
 from pages.base_page import BasePage
 from pages.locators import MainPageLocators
+from utilities.logger import Logger
 
 
 class MainPage(BasePage):
@@ -94,33 +92,45 @@ class MainPage(BasePage):
         print("Click continue ordering")
 
     def assert_price(self):
-        self.assert_word(self.get_element(*MainPageLocators.ORDER_PRICE), "2 774 ₽")
+        self.assert_word(self.get_element(*MainPageLocators.ORDER_PRICE), "2 809 ₽")
         print("Order price is correct")
     # Methods
 
     def authorization(self):
-        self.driver.get(self.url)
-        self.driver.maximize_window()
-        self.get_current_url()
-        self.click_enter_button()
-        self.input_user_name("Dmitrii357")
-        self.input_password("Vfhbyf357")
-        self.click_login_button()
-        self.assert_word(self.get_element(*MainPageLocators.AUTHORIZED_USER_ICON), "Dmitrii357")
+        with allure.step("authorization"):
+            Logger.add_start_step(method="authorization")
+            self.driver.get(self.url)
+            self.driver.maximize_window()
+            self.get_current_url()
+            self.click_enter_button()
+            self.input_user_name("Dmitrii357")
+            self.input_password("Vfhbyf357")
+            self.click_login_button()
+            self.assert_word(self.get_element(*MainPageLocators.AUTHORIZED_USER_ICON), "Dmitrii357")
+            Logger.add_end_step(url=self.driver.current_url, method="authorization")
 
     def choose_product(self):
-        self.click_catalogue_button()
-        self.click_motor_oil()
-        self.click_brand_list()
-        self.click_oil_brand()
-        self.click_composition_list()
-        self.click_composition()
-        self.click_first_position()
-        self.click_add_to_cart_button()
-        self.click_close_fancybox_button()
-        self.click_go_to_cart_button()
-        self.click_continue_ordering_button()
-        self.assert_price()
-        self.get_screenshot()
-        print("Теперь осталось нажать кнопку - 'Согласен, отпрваить заказ'(см. скриншот), но можно не буду ее нажимать, а то позвонят!")
-        time.sleep(3)
+        with allure.step("choose product"):
+            Logger.add_start_step(method="choose product")
+            self.click_catalogue_button()
+            self.click_motor_oil()
+            self.click_brand_list()
+            self.click_oil_brand()
+            self.click_composition_list()
+            self.click_composition()
+            self.click_first_position()
+            self.click_add_to_cart_button()
+            self.click_close_fancybox_button()
+            Logger.add_end_step(url=self.driver.current_url, method="choose product")
+
+
+    def confirm_product(self):
+        with allure.step("confirm product"):
+            Logger.add_start_step(method="confirm product")
+            self.click_go_to_cart_button()
+            self.click_continue_ordering_button()
+            self.assert_price()
+            self.get_screenshot()
+            Logger.add_end_step(url=self.driver.current_url, method="confirm product")
+            print("Теперь осталось нажать кнопку - 'Согласен, отпрваить заказ'(см. скриншот), но можно не буду ее нажимать, а то позвонят!")
+            time.sleep(3)
